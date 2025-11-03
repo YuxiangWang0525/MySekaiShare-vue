@@ -7,20 +7,23 @@ const api = axios.create({
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'
-  },
-  withCredentials: true // 添加凭据支持
+  }
 })
 
 // 请求拦截器
 api.interceptors.request.use(
   config => {
-    // 确保每次请求都携带凭证
-    config.withCredentials = true
+    // 从localStorage获取JWT token并添加到Authorization header
+    const token = localStorage.getItem('token')
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    
     // 打印请求信息用于调试
     console.log('发送请求:', {
       url: config.url,
       method: config.method,
-      withCredentials: config.withCredentials
+      headers: config.headers
     })
     return config
   },
@@ -45,6 +48,10 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       // 可以在这里处理未授权错误，比如重定向到登录页
       console.log('收到401未授权响应')
+      // 清除本地存储的token和用户信息
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      localStorage.removeItem('isAuthenticated')
     }
     console.log('请求错误:', {
       url: error.config?.url,

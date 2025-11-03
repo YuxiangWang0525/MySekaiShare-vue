@@ -8,12 +8,15 @@ export const useUserStore = defineStore('user', {
   }),
   
   actions: {
-    setUser(user) {
+    setUser(user, token) {
       this.user = user
       this.isAuthenticated = true
       // 保存到 localStorage
       localStorage.setItem('user', JSON.stringify(user))
       localStorage.setItem('isAuthenticated', 'true')
+      if (token) {
+        localStorage.setItem('token', token)
+      }
     },
     
     async logout() {
@@ -29,14 +32,16 @@ export const useUserStore = defineStore('user', {
       // 从 localStorage 中清除
       localStorage.removeItem('user')
       localStorage.removeItem('isAuthenticated')
+      localStorage.removeItem('token')
     },
     
     // 初始化时从 localStorage 恢复状态
     async initStore() {
       const savedUser = localStorage.getItem('user')
       const savedAuthState = localStorage.getItem('isAuthenticated')
+      const token = localStorage.getItem('token')
       
-      if (savedUser && savedAuthState === 'true') {
+      if (savedUser && savedAuthState === 'true' && token) {
         this.user = JSON.parse(savedUser)
         this.isAuthenticated = true
         
@@ -58,6 +63,9 @@ export const useUserStore = defineStore('user', {
             this.logout()
           }
         }
+      } else if (!token && (savedUser || savedAuthState === 'true')) {
+        // 如果没有token但有其他认证信息，也需要清理
+        this.logout()
       }
     }
   }

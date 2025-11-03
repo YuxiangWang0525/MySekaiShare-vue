@@ -65,9 +65,7 @@ const handleFinish = async (values) => {
     
     if (response.data.success) {
       message.success('登录成功')
-      userStore.setUser(response.data.user)
-      // 检查是否设置了cookie
-      console.log('登录响应中的set-cookie头部:', response.headers['set-cookie'] || '无');
+      userStore.setUser(response.data.user, response.data.token)
       router.push('/')
     } else {
       message.error('登录失败: ' + response.data.message)

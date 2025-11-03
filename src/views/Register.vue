@@ -148,7 +148,7 @@ const handleFinish = async (values) => {
       'cf-turnstile-response': turnstileToken.value
     })
     message.success('注册成功')
-    userStore.setUser(response.data.user)
+    userStore.setUser(response.data.user, response.data.token)
     router.push('/')
   } catch (error) {
     message.error('注册失败: ' + (error.response?.data?.message || error.message))
