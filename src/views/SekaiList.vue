@@ -24,6 +24,8 @@
               mode="multiple"
               placeholder="请选择要筛选的物品"
               :options="fixtureOptions"
+              :filter-option="filterOption"
+              show-search
               style="width: 300px"
             />
           </a-form-item>
@@ -34,6 +36,7 @@
               :options="serverOptions"
               style="width: 120px"
               allow-clear
+              :field-names="{ label: 'label', value: 'label' }"
             />
           </a-form-item>
           <a-form-item>
@@ -119,6 +122,11 @@ const pagination = {
   pageSize: 10
 }
 
+// 物品筛选选项过滤函数
+const filterOption = (input, option) => {
+  return option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
+}
+
 // 格式化日期
 const formatDate = (dateString) => {
   if (!dateString) return '未知'
@@ -194,7 +202,7 @@ const loadServerRegions = async () => {
     if (response.data.success && response.data.data) {
       serverOptions.value = response.data.data.map(region => ({
         label: region.region,
-        value: region.region
+        value: region.serverid
       }))
     }
   } catch (error) {
@@ -221,7 +229,9 @@ const applyFilter = async () => {
     
     // 添加服务器筛选条件
     if (filterForm.value.server) {
-      requestBody.server = filterForm.value.server
+      // 由于后端API期望的是serverid而不是region名称，我们需要转换一下
+      const server = serverOptions.value.find(option => option.label === filterForm.value.server)
+      requestBody.serverid = server ? server.value : filterForm.value.server
     }
     
     const response = await api.post('/api/lookup_sekai_by_fixtures', requestBody)

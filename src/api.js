@@ -2,8 +2,8 @@ import axios from 'axios'
 
 // 创建 axios 实例
 const api = axios.create({
-    // baseURL: 'https://mssapi.sekailand.cn',
-  baseURL: 'http://localhost:3000', // 根据实际后端地址进行修改
+    baseURL: 'https://mssapi.sekailand.cn',
+  // baseURL: 'http://localhost:3000', // 根据实际后端地址进行修改
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'

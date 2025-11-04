@@ -63,6 +63,8 @@
           placeholder="请选择物品"
           :options="fixtureOptions"
           :loading="fixturesLoading"
+          show-search
+          :filter-option="filterOption"
         />
       </a-form-item>
     </a-form>
@@ -96,6 +98,11 @@ const formState = ref({
   description: '',
   fixtures: []
 })
+
+// 物品筛选选项过滤函数
+const filterOption = (input, option) => {
+  return option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
+}
 
 // 监听visible属性变化
 watch(() => props.visible, (newVal) => {
