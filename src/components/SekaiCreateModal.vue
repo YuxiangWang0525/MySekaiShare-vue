@@ -227,3 +227,60 @@ onMounted(() => {
   loadServerRegions()
 })
 </script>
+
+<style scoped>
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .ant-modal {
+    max-width: calc(100vw - 32px);
+  }
+  
+  .ant-form-item-label {
+    padding-right: 8px;
+    white-space: normal;
+    text-align: left;
+  }
+  
+  .ant-select-selection-item {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .ant-modal {
+    margin: 16px auto;
+  }
+  
+  .ant-modal-header {
+    padding: 12px 16px;
+  }
+  
+  .ant-modal-body {
+    padding: 16px;
+  }
+  
+  .ant-modal-footer {
+    padding: 10px 16px;
+  }
+  
+  .ant-modal-title {
+    font-size: 16px;
+  }
+  
+  .ant-form-item-label {
+    padding-bottom: 4px;
+  }
+  
+  .ant-input,
+  .ant-input-affix-wrapper,
+  .ant-select-selector {
+    padding: 6px 11px;
+  }
+  
+  .ant-btn {
+    height: 32px;
+    font-size: 14px;
+    padding: 0 15px;
+  }
+}
+</style>

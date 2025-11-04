@@ -1,5 +1,7 @@
 <script setup>
-
+const openpage = (url) => {
+  window.open(url);
+}
 </script>
 
 <template>
@@ -31,7 +33,20 @@
             <li><p>DREAMERIVER江愿软件即服务SaaS - FlowerInteractive"飞花令"网站数字业务框架(专有软件)</p></li>
           </ul>
         </a-typography-paragraph>
-        
+
+        <a-typography-title :level="2">贡献者列表</a-typography-title>
+        <a-typography-paragraph align="center">
+          <a-card hoverable style="width: 300px;text-align:left;" @click="openpage('https://yuxiangwang0525.com')">
+            <template #actions>
+            </template>
+            <a-card-meta title="晚江右海" description="项目方案构想、全栈开发">
+              <template #avatar>
+                <a-avatar src="https://yuxiangwang0525.com/avatar.svg" />
+              </template>
+            </a-card-meta>
+          </a-card>
+        </a-typography-paragraph>
+
         <a-typography-title :level="2">特别感谢</a-typography-title>
         <a-typography-paragraph>
           所有参与测试的老师们<br><br>

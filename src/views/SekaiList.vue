@@ -289,4 +289,78 @@ onMounted(() => {
   font-size: 12px;
   color: #999;
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .sekai-list {
+    padding: 12px;
+  }
+  
+  .filter-section {
+    margin-bottom: 15px;
+  }
+  
+  .ant-card-head-title {
+    font-size: 16px;
+  }
+  
+  .ant-form-item-label {
+    padding-right: 8px;
+  }
+  
+  .ant-select {
+    font-size: 14px;
+  }
+  
+  .ant-btn {
+    font-size: 14px;
+  }
+  
+  .sekai-info {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 576px) {
+  .sekai-list {
+    padding: 8px;
+  }
+  
+  .filter-section .ant-card {
+    padding: 8px;
+  }
+  
+  .ant-form-item {
+    margin-bottom: 8px;
+  }
+  
+  .ant-select-selector {
+    padding: 0 8px;
+  }
+  
+  .ant-select-selection-item {
+    font-size: 12px;
+  }
+  
+  .ant-list-item-meta-title {
+    font-size: 16px;
+  }
+  
+  .sekai-description {
+    font-size: 14px;
+  }
+  
+  .sekai-info {
+    font-size: 11px;
+  }
+  
+  .ant-page-header-heading-title {
+    font-size: 18px;
+  }
+  
+  .ant-page-header-heading-sub-title {
+    font-size: 12px;
+  }
+}
 </style>

@@ -109,4 +109,41 @@ const handleFinish = async (values) => {
 .auth-links a:hover {
   text-decoration: underline;
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 15px;
+    min-height: calc(100vh - 100px);
+  }
+  
+  .auth-card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .auth-container {
+    padding: 10px;
+    min-height: calc(100vh - 80px);
+  }
+  
+  .ant-card-head-title {
+    font-size: 20px;
+    padding: 12px 0;
+  }
+  
+  .ant-input-affix-wrapper {
+    padding: 6px 11px;
+  }
+  
+  .ant-input-prefix {
+    font-size: 12px;
+  }
+  
+  .ant-btn {
+    height: 36px;
+    font-size: 14px;
+  }
+}
 </style>

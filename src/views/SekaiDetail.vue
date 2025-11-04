@@ -57,9 +57,12 @@
           >
             <template #renderItem="{ item }">
               <a-list-item>
-                <a-card :title="getFixtureName(item['物品id'] || item.fixtureId)">
+                <a-card style="min-width: 240px">
+                  <template #title>
+                    <div class="fixture-title">{{ getFixtureName(item['物品id'] || item.fixtureId) }}</div>
+                  </template>
                   <p>物品ID: {{ item['物品id'] || item.fixtureId }}</p>
-                  <a :href="'https://sekai.best/mysekai/fixture/'+item.fixtureId" target="_blank">在Sekai Viewer查看</a>
+                  <a :href="'https://sekai.best/mysekai/fixture/'+(item['物品id'] || item.fixtureId)" target="_blank">在Sekai Viewer查看</a>
                 </a-card>
               </a-list-item>
             </template>
@@ -67,7 +70,10 @@
         </div>
       </a-card>
       
-      <a-result v-else status="404" title="SEKAI未找到" sub-title="抱歉，没有找到对应的SEKAI信息">
+      <a-result v-else title="SEKAI未找到" sub-title="抱歉，没有找到对应的SEKAI信息">
+        <template #icon>
+          <img :src="miku25ji404" alt="404 Not Found" style="width: 200px; height: auto;" />
+        </template>
         <template #extra>
           <a-button type="primary" @click="router.push('/sekai-list')">返回分享广场</a-button>
         </template>
@@ -91,7 +97,7 @@ import { message } from 'ant-design-vue'
 import { useUserStore } from '../store'
 import api from '../api'
 import SekaiEditModal from '../components/SekaiEditModal.vue'
-
+import miku25ji404 from '../assets/404.png'
 const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
@@ -200,5 +206,73 @@ onMounted(() => {
 .sekai-description p {
   font-size: 16px;
   line-height: 1.5;
+}
+
+:deep(.ant-card-head-title) {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  word-break: break-all;
+}
+
+.fixture-title {
+  word-break: break-all;
+  white-space: normal;
+}
+
+/* 移动端适配 */
+@media (max-width: 992px) {
+  .sekai-fixtures .ant-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .sekai-fixtures .ant-list-item {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .sekai-detail {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .sekai-detail {
+    padding: 8px;
+  }
+  
+  .sekai-fixtures .ant-list-item {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  
+  .fixture-title {
+    font-size: 14px;
+  }
+  
+  .ant-card-body p {
+    font-size: 12px;
+  }
+  
+  .ant-page-header-heading-title {
+    font-size: 16px;
+  }
+  
+  .ant-page-header-heading-sub-title {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 375px) {
+  .fixture-title {
+    font-size: 13px;
+  }
+  
+  .ant-card-body p {
+    font-size: 11px;
+  }
 }
 </style>

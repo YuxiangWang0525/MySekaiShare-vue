@@ -44,4 +44,59 @@ ul {
 li {
   margin-bottom: 10px;
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .home {
+    padding: 15px;
+  }
+  
+  .ant-card-head-title {
+    font-size: 18px;
+  }
+  
+  .ant-card-body {
+    padding: 12px;
+  }
+  
+  ul {
+    padding-left: 15px;
+    font-size: 14px;
+  }
+  
+  li {
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 576px) {
+  .home {
+    padding: 10px;
+  }
+  
+  .ant-card {
+    font-size: 12px;
+  }
+  
+  .ant-card-head {
+    padding: 8px 12px;
+  }
+  
+  .ant-card-head-title {
+    font-size: 16px;
+  }
+  
+  .ant-card-body {
+    padding: 10px;
+  }
+  
+  ul {
+    padding-left: 12px;
+  }
+  
+  .ant-btn {
+    font-size: 12px;
+    height: 32px;
+  }
+}
 </style>

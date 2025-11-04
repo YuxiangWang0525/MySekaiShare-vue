@@ -8,6 +8,7 @@
         theme="dark"
         mode="horizontal"
         :style="{ lineHeight: '64px' }"
+        class="nav-menu"
       >
         <a-menu-item key="home">
           <router-link to="/">首页</router-link>
@@ -21,8 +22,8 @@
       </a-menu>
       <div class="user-actions">
         <template v-if="userStore.isAuthenticated">
-          <span>欢迎, {{ userStore.user?.username }}</span>
-          <a-button type="link" @click="handleLogout">退出</a-button>
+          <span class="username-text">欢迎, {{ userStore.user?.username }}</span>
+          <a-button type="link" @click="handleLogout" class="logout-button">退出</a-button>
         </template>
         <template v-else>
           <router-link to="/login">登录</router-link>
@@ -113,8 +114,8 @@ const watermarkContent = computed(() => {
   const timeString = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`
   
   return [
-    '内部测试',
-    '不代表最终品质请勿分享',
+    '灰度公测',
+    '不代表最终品质',
     username,
     timeString
   ]
@@ -166,17 +167,26 @@ onMounted(() => {
   color: white;
   font-size: 20px;
   font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .user-actions {
   float: right;
   color: white;
+  display: flex;
+  align-items: center;
+  min-width: 0; /* 允许flex子项收缩 */
 }
 
 .user-actions a {
   color: white;
   margin-left: 15px;
   text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .register-link {
@@ -211,5 +221,171 @@ onMounted(() => {
 
 .footer-content p {
   margin: 0;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .header {
+    padding: 0 10px;
+  }
+  
+  .logo {
+    font-size: 18px;
+    max-width: 40%;
+  }
+  
+  .user-actions {
+    max-width: 60%;
+  }
+  
+  .user-actions a {
+    margin-left: 8px;
+    font-size: 14px;
+    max-width: 50%;
+  }
+  
+  .username-text {
+    max-width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .logout-button {
+    font-size: 14px;
+    padding: 0 8px;
+  }
+  
+  .content-wrapper {
+    padding: 12px;
+  }
+  
+  .footer-content {
+    font-size: 12px;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .layout {
+    padding-top: 50px;
+  }
+  
+  .header {
+    padding: 0 8px;
+    height: 50px !important;
+    line-height: 50px !important;
+  }
+  
+  .logo {
+    font-size: 16px;
+    max-width: 35%;
+  }
+  
+  .user-actions {
+    max-width: 65%;
+  }
+  
+  .user-actions a {
+    margin-left: 5px;
+    font-size: 12px;
+    max-width: 45%;
+  }
+  
+  .username-text {
+    font-size: 12px;
+    max-width: 60%;
+  }
+  
+  .logout-button {
+    font-size: 12px;
+    padding: 0 5px;
+  }
+  
+  .nav-menu {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .nav-menu::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+  }
+  
+  .nav-menu .ant-menu-item {
+    flex: 0 0 auto;
+    padding: 0 8px !important;
+    font-size: 14px;
+  }
+  
+  .content-wrapper {
+    padding: 8px;
+  }
+  
+  .footer {
+    padding: 8px 0;
+  }
+  
+  .footer-content p {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 15px;
+    max-width: 30%;
+  }
+  
+  .user-actions {
+    max-width: 70%;
+  }
+  
+  .user-actions a {
+    font-size: 11px;
+    margin-left: 3px;
+  }
+  
+  .username-text {
+    font-size: 11px;
+  }
+  
+  .logout-button {
+    font-size: 11px;
+  }
+  
+  .nav-menu .ant-menu-item {
+    padding: 0 5px !important;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 375px) {
+  .logo {
+    font-size: 14px;
+    max-width: 25%;
+  }
+  
+  .user-actions {
+    max-width: 75%;
+  }
+  
+  .user-actions a {
+    font-size: 10px;
+    margin-left: 2px;
+  }
+  
+  .username-text {
+    font-size: 10px;
+  }
+  
+  .logout-button {
+    font-size: 10px;
+    padding: 0 3px;
+  }
+  
+  .nav-menu .ant-menu-item {
+    padding: 0 4px !important;
+    font-size: 11px;
+  }
 }
 </style>
