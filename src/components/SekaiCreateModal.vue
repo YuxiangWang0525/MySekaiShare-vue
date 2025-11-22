@@ -3,7 +3,11 @@
     v-model:visible="visible"
     title="分享我的SEKAI"
     width="600px"
+    :maskClosable="false"
+    :keyboard="false"
+    ok-text="创建"
     @ok="handleOk"
+    cancel-text="还是算了"
     @cancel="handleCancel"
   >
     <a-form
@@ -13,11 +17,11 @@
       :wrapper-col="{ span: 18 }"
     >
       <a-form-item
-        label="SEKAI ID"
+        label="SEKAI ID(玩家ID)"
         name="SEKAIID"
         :rules="[{ required: true, message: '请输入SEKAI ID!' }]"
       >
-        <a-input v-model:value="formState.SEKAIID" placeholder="请输入SEKAI ID" />
+        <a-input v-model:value="formState.SEKAIID" placeholder="请输入SEKAI ID/玩家ID(好友码)" />
       </a-form-item>
 
       <a-form-item
@@ -98,6 +102,7 @@ const formState = ref({
   description: '',
   fixtures: []
 })
+
 
 // 物品筛选选项过滤函数
 const filterOption = (input, option) => {
@@ -208,6 +213,7 @@ const handleOk = async () => {
 const handleCancel = () => {
   resetForm()
   emit('close')
+  message.info('kitto todoku hazu')
 }
 
 // 重置表单

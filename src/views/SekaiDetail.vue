@@ -23,7 +23,7 @@
     <a-spin :spinning="loading">
       <a-card v-if="sekaiData && Object.keys(sekaiData).length > 0" class="sekai-content">
         <a-descriptions title="SEKAI信息" :column="{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }">
-          <a-descriptions-item label="SEKAI ID">
+          <a-descriptions-item label="SEKAI ID (玩家ID)">
             {{ sekaiData.SEKAIID || sekaiData.sekaiId || '未知' }}
           </a-descriptions-item>
           <a-descriptions-item label="服务器地区">
@@ -51,26 +51,28 @@
         
         <div class="sekai-fixtures">
           <h3>物品列表</h3>
-          <a-list
-            :grid="{ gutter: 16, column: 4 }"
-            :data-source="sekaiData.SekaiFixtures || []"
+          <a-table 
+            :dataSource="sekaiData.SekaiFixtures || []" 
+            :columns="fixtureColumns"
+            :pagination="false"
+            :scroll="{ x: true }"
           >
-            <template #renderItem="{ item }">
-              <a-list-item>
-                <a-card style="min-width: 240px">
-                  <template #title>
-                    <div class="fixture-title">{{ getFixtureName(item['物品id'] || item.fixtureId) }}</div>
-                  </template>
-                  <p>物品ID: {{ item['物品id'] || item.fixtureId }}</p>
-                  <a :href="'https://sekai.best/mysekai/fixture/'+(item['物品id'] || item.fixtureId)" target="_blank">在Sekai Viewer查看</a>
-                </a-card>
-              </a-list-item>
+            <template #bodyCell="{ column, record }">
+              <template v-if="column.dataIndex === 'name'">
+                <div class="fixture-title">{{ getFixtureName(record['物品id'] || record.fixtureId) }}</div>
+              </template>
+              <template v-else-if="column.dataIndex === 'id'">
+                {{ record['物品id'] || record.fixtureId }}
+              </template>
+              <template v-else-if="column.dataIndex === 'action'">
+                <a :href="'https://sekai.best/mysekai/fixture/'+(record['物品id'] || record.fixtureId)" target="_blank">在Sekai Viewer查看</a>
+              </template>
             </template>
-          </a-list>
+          </a-table>
         </div>
       </a-card>
       
-      <a-result v-else title="SEKAI未找到" sub-title="抱歉，没有找到对应的SEKAI信息">
+      <a-result v-else title="未找到心愿" sub-title="抱歉，没有找到对应的SEKAI信息">
         <template #icon>
           <img :src="miku25ji404" alt="404 Not Found" style="width: 200px; height: auto;" />
         </template>
@@ -182,6 +184,24 @@ const loadSekaiDetail = async () => {
     loading.value = false
   }
 }
+
+const fixtureColumns = [
+  {
+    title: '物品名称',
+    dataIndex: 'name',
+    key: 'name'
+  },
+  {
+    title: '物品ID',
+    dataIndex: 'id',
+    key: 'id'
+  },
+  {
+    title: '操作',
+    dataIndex: 'action',
+    key: 'action'
+  }
+]
 
 onMounted(() => {
   loadFixtureMap()

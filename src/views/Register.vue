@@ -49,11 +49,31 @@
           </a-input-password>
         </a-form-item>
         
+        <a-form-item
+          name="agreement"
+          :rules="[{ required: true, message: '请阅读并同意用户协议和隐私政策!' }]"
+        >
+          <a-checkbox v-model:checked="formState.agreement">
+            我已阅读并同意
+            <router-link to="/document/term" target="_blank">《用户协议》</router-link>
+            与
+            <router-link to="/document/privacypolicy" target="_blank">《隐私政策》</router-link>
+          </a-checkbox>
+        </a-form-item>
+        
+        <a-form-item>
+          <a-checkbox v-model:checked="formState.over14">
+            我已年满14周岁
+          </a-checkbox>
+        </a-form-item>
+        
         <!-- Cloudflare Turnstile 组件 -->
         <a-form-item>
           <div ref="turnstileContainer"></div>
         </a-form-item>
-        
+        <a-form-item>
+
+        </a-form-item>
         <a-form-item>
           <a-button type="primary" html-type="submit" block :loading="loading">
             注册
@@ -88,7 +108,9 @@ const formState = reactive({
   username: '',
   email: '',
   password: '',
-  confirmPassword: ''
+  confirmPassword: '',
+  agreement: false,
+  over14: false
 })
 
 // 加载 Turnstile 脚本
@@ -138,6 +160,11 @@ const validateConfirmPassword = (_, value) => {
 }
 
 const handleFinish = async (values) => {
+  if (!formState.agreement) {
+    message.error('请阅读并同意用户协议和隐私政策')
+    return
+  }
+  
   loading.value = true
   try {
     // 注册请求

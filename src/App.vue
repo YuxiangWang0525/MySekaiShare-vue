@@ -7,7 +7,6 @@
         v-model:selectedKeys="selectedKeys"
         theme="dark"
         mode="horizontal"
-        :style="{ lineHeight: '64px' }"
         class="nav-menu"
       >
         <a-menu-item key="home">
@@ -22,7 +21,7 @@
       </a-menu>
       <div class="user-actions">
         <template v-if="userStore.isAuthenticated">
-          <span class="username-text">欢迎, {{ userStore.user?.username }}</span>
+          <span class="username-text" style="white-space: nowrap;">欢迎, {{ userStore.user?.username }}</span>
           <a-button type="link" @click="handleLogout" class="logout-button">退出</a-button>
         </template>
         <template v-else>
@@ -83,7 +82,7 @@
     <a-layout-footer class="footer">
       <div class="footer-content">
         <p>MySekaiShare &copy;2025 SekaiLand 版权所有.本站与SEGA、Colorful Palette、CFM无关.</p>
-        <p>侵权申述邮箱:riverfrozer@dreameriver.cn</p>
+        <p>侵权申述邮箱:riverfrozer@dreameriver.cn 严禁将本站任何内容用于商业用途(包括但不限于:售卖本站地址、本站数据、或将本站含地址在内的任何信息作为任何有偿的售卖赠品)</p>
       </div>
     </a-layout-footer>
   </a-layout>
@@ -142,6 +141,17 @@ onMounted(() => {
     selectedKeys.value = ['about']
   }
 })
+</script>
+
+<script>
+import zhCN from 'ant-design-vue/es/locale/zh_CN';
+export default {
+  data() {
+    return {
+      locale: zhCN,
+    };
+  },
+};
 </script>
 
 <style scoped>
