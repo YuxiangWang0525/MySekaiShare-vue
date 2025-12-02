@@ -11,6 +11,9 @@
           </template>
           分享我的SEKAI
         </a-button>
+        <div v-else>
+        老师,如果需要分享自己的SEKAI需要&nbsp;<a-button href="/login" type="primary">登录</a-button>&nbsp;或者&nbsp;<a-button href="/register" type="primary">注册</a-button>&nbsp;哦
+          </div>
       </template>
     </a-page-header>
 
@@ -69,7 +72,7 @@
             </div>
             <div class="sekai-info">
               <span>创建时间: {{ formatDate(item.createdAt) }}</span>
-              <span>物品数量: {{ item.SekaiFixtures ? item.SekaiFixtures.length : 0 }}</span>
+              <span>物品数量: {{ item.fixtures_number }}</span>
             </div>
           </a-list-item>
         </template>

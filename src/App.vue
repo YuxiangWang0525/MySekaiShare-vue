@@ -2,7 +2,7 @@
   <a-layout class="layout">
     <!-- 页头 -->
     <a-layout-header class="header">
-      <div class="logo">MySekaiShare</div>
+      <router-link to="/"><div class="logo">MySekaiShare</div></router-link>
       <a-menu
         v-model:selectedKeys="selectedKeys"
         theme="dark"
@@ -104,7 +104,7 @@ const userStore = useUserStore()
 const selectedKeys = ref(['home'])
 
 // 控制水印显示的变量，开发人员可以手动修改这个值来启禁用水印
-const showWatermark = ref(true)
+const showWatermark = ref(false)
 
 // 生成水印内容
 const watermarkContent = computed(() => {
