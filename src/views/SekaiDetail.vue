@@ -3,7 +3,7 @@
     <a-page-header
       style="border: 1px solid rgb(235, 237, 240)"
       :title="sekaiData['MySEKAI昵称ID'] || sekaiData.sekaiName || 'SEKAI详情'"
-      :sub-title="'心愿主: ' + (sekaiData.User?.username || '未知')"
+      :sub-title="'心愿主: ' + (sekaiData.User?.nickname || '未知')"
       @back="() => router.go(-1)"
     >
       <template #extra>

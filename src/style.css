@@ -1,212 +1,123 @@
-/*!* 全局样式重置和初始化 *!*/
-/** {*/
-/*  margin: 0;*/
-/*  padding: 0;*/
-/*  box-sizing: border-box;*/
-/*}*/
-
-/*body {*/
-/*  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,*/
-/*    'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',*/
-/*    'Noto Color Emoji';*/
-/*  font-size: 14px;*/
-/*  line-height: 1.5715;*/
-/*  color: rgba(0, 0, 0, 0.85);*/
-/*  background-color: #f0f2f5;*/
-/*}*/
-
-/*#app {*/
-/*  height: 100%;*/
-/*}*/
-
-/*!* 链接样式 *!*/
-/*a {*/
-/*  color: #1890ff;*/
-/*  text-decoration: none;*/
-/*  background-color: transparent;*/
-/*  outline: none;*/
-/*  cursor: pointer;*/
-/*  transition: color 0.3s;*/
-/*  -webkit-text-decoration-skip: objects;*/
-/*}*/
-
-/*a:hover {*/
-/*  color: #40a9ff;*/
-/*}*/
-
-/*a:active {*/
-/*  color: #096dd9;*/
-/*}*/
-
-/*!* 滚动条样式 *!*/
-/*::-webkit-scrollbar {*/
-/*  width: 6px;*/
-/*  height: 6px;*/
-/*}*/
-
-/*::-webkit-scrollbar-thumb {*/
-/*  background: rgba(0, 0, 0, 0.2);*/
-/*  border-radius: 3px;*/
-/*}*/
-
-/*::-webkit-scrollbar-thumb:hover {*/
-/*  background: rgba(0, 0, 0, 0.4);*/
-/*}*/
-
-/*:root {*/
-/*  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;*/
-/*  line-height: 1.5;*/
-/*  font-weight: 400;*/
-
-/*  color-scheme: light dark;*/
-/*  color: rgba(255, 255, 255, 0.87);*/
-/*  background-color: #242424;*/
-
-/*  font-synthesis: none;*/
-/*  text-rendering: optimizeLegibility;*/
-/*  -webkit-font-smoothing: antialiased;*/
-/*  -moz-osx-font-smoothing: grayscale;*/
-/*}*/
-
-/*a {*/
-/*  font-weight: 500;*/
-/*  color: #646cff;*/
-/*  text-decoration: inherit;*/
-/*}*/
-/*a:hover {*/
-/*  color: #535bf2;*/
-/*}*/
-
-/*body {*/
-/*  margin: 0;*/
-/*  display: flex;*/
-/*  place-items: center;*/
-/*  min-width: 320px;*/
-/*  min-height: 100vh;*/
-/*}*/
-
-/*h1 {*/
-/*  font-size: 3.2em;*/
-/*  line-height: 1.1;*/
-/*}*/
-
-/*button {*/
-/*  border-radius: 8px;*/
-/*  border: 1px solid transparent;*/
-/*  padding: 0.6em 1.2em;*/
-/*  font-size: 1em;*/
-/*  font-weight: 500;*/
-/*  font-family: inherit;*/
-/*  background-color: #1a1a1a;*/
-/*  cursor: pointer;*/
-/*  transition: border-color 0.25s;*/
-/*}*/
-/*button:hover {*/
-/*  border-color: #646cff;*/
-/*}*/
-/*button:focus,*/
-/*button:focus-visible {*/
-/*  outline: 4px auto -webkit-focus-ring-color;*/
-/*}*/
-
-/*.card {*/
-/*  padding: 2em;*/
-/*}*/
-
-/*#app {*/
-/*  max-width: 1280px;*/
-/*  margin: 0 auto;*/
-/*  padding: 2rem;*/
-/*  text-align: center;*/
-/*}*/
-
-/*@media (prefers-color-scheme: light) {*/
-/*  :root {*/
-/*    color: #213547;*/
-/*    background-color: #ffffff;*/
-/*  }*/
-/*  a:hover {*/
-/*    color: #747bff;*/
-/*  }*/
-/*  button {*/
-/*    background-color: #f9f9f9;*/
-/*  }*/
-/*}*/
-
-/* 全局移动端适配样式 */
-@media (max-width: 768px) {
-  .ant-row {
-    margin-left: -8px !important;
-    margin-right: -8px !important;
-  }
-  
-  .ant-col {
-    padding-left: 8px !important;
-    padding-right: 8px !important;
-  }
-  
-  .ant-form-item {
-    margin-bottom: 16px;
-  }
+/* 默认浅色主题 */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --header-bg: #1890ff;
+  --card-bg: #ffffff;
+  --menu-bg: #404040;
+  --layout-sider-bg: #fff;
+  --layout-bg: #f0f2f5;
+  --footer-bg: #f0f2f5;
+  --content-bg: #fff;
 }
 
-@media (max-width: 576px) {
-  .ant-row {
-    margin-left: -4px !important;
-    margin-right: -4px !important;
-  }
-  
-  .ant-col {
-    padding-left: 4px !important;
-    padding-right: 4px !important;
-  }
-  
-  .ant-form-item {
-    margin-bottom: 12px;
-  }
-  
-  .ant-form-item-label {
-    padding-bottom: 4px;
-  }
-  
-  /* 调整按钮在小屏幕上的显示 */
-  .ant-btn {
-    font-size: 14px;
-    height: 36px;
-    padding: 0 15px;
-  }
-  
-  /* 调整输入框在小屏幕上的显示 */
-  .ant-input {
-    font-size: 14px;
-    padding: 6px 11px;
-  }
-  
-  /* 调整表格在小屏幕上的显示 */
-  .ant-table {
-    font-size: 12px;
-  }
-  
-  .ant-table-thead > tr > th,
-  .ant-table-tbody > tr > td {
-    padding: 8px 6px;
-  }
+/* 暗黑主题 */
+[data-theme="dark"] {
+  --bg-color: #1d1d1d;
+  --text-color: #ffffff;
+  --header-bg: #172e4d;
+  --card-bg: #1f1f1f;
+  --menu-bg: #1d1d1d;
+  --layout-sider-bg: #1d1d1d;
+  --layout-bg: #141414;
+  --footer-bg: #2d2d2d;
+  --content-bg: #141414;
 }
 
-/* 针对超小屏幕设备的优化 */
-@media (max-width: 375px) {
-  .ant-btn {
-    font-size: 12px;
-    height: 32px;
-    padding: 0 12px;
-  }
-  
-  .ant-input {
-    font-size: 12px;
-    padding: 4px 8px;
-  }
-  
-  .ant-form-item-label {
-    font-size: 12px;
-  }
+/* 默认样式 */
+
+/* 应用背景色 */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Layout 样式 */
+.ant-layout {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Header 样式 */
+.ant-layout-header {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Sider 样式 */
+.ant-layout-sider {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Content 样式 */
+.content-wrapper {
+  min-height: calc(100vh - 64px - 70px - 40px) !important;
+  padding: 24px !important;
+  margin-top: 0 !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Footer 样式 */
+.ant-layout-footer {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Card 样式 */
+.ant-card {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 输入框样式 */
+.ant-input {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 选择框样式 */
+.ant-select-selector {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 下拉菜单样式 */
+.ant-select-dropdown {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 按钮样式 */
+.ant-btn {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 菜单样式 */
+.ant-menu {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 分页样式 */
+.ant-pagination-item {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.ant-pagination-item-link {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 列表项样式 */
+.ant-list-item {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 表格样式 */
+.ant-table {
+  transition: background-color 0.3s ease;
+}
+
+.ant-table-tbody > tr > td {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 水印文字颜色调整 */
+.ant-watermark {
+  opacity: 0.15 !important;
+}
+
+/* 页面头部样式 */
+.ant-page-header {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }

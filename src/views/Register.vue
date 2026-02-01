@@ -4,9 +4,20 @@
       <a-form :model="formState" @finish="handleFinish">
         <a-form-item
           name="username"
-          :rules="[{ required: true, message: '请输入用户名!' }]"
+          :rules="[{ required: true, message: '请输入用户名!' }, { pattern: /^[a-zA-Z0-9_]+$/, message: '用户名只能包含大小写英文字母、数字和下划线!' }]"
         >
           <a-input v-model:value="formState.username" placeholder="用户名">
+            <template #prefix>
+              <UserOutlined />
+            </template>
+          </a-input>
+        </a-form-item>
+        
+        <a-form-item
+          name="nickname"
+          :rules="[{ required: true, message: '请输入昵称!' }]"
+        >
+          <a-input v-model:value="formState.nickname" placeholder="昵称">
             <template #prefix>
               <UserOutlined />
             </template>
@@ -93,10 +104,11 @@
 <script setup>
 import { reactive, ref, onMounted, onBeforeUnmount } from 'vue'
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons-vue'
-import { message } from 'ant-design-vue'
+import { message,notification } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../store'
 import api from '../api'
+import { nextTick } from 'vue'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -106,6 +118,7 @@ const turnstileToken = ref('')
 
 const formState = reactive({
   username: '',
+  nickname: '',
   email: '',
   password: '',
   confirmPassword: '',
@@ -151,6 +164,14 @@ onBeforeUnmount(() => {
     window.turnstile.remove()
   }
 })
+const registerSuccessTooltip = () => {
+  notification["success"]({
+    duration:120,
+    message: '注册成功啦',
+    description:
+        '可以去分享广场找到其他心愿主的sekai和分享自己的sekai,点击昵称即可修改个人信息。此通知两分钟后会自动关闭，你也可以手动按X按钮关闭此通知。',
+  });
+};
 
 const validateConfirmPassword = (_, value) => {
   if (!value || value === formState.password) {
@@ -170,12 +191,15 @@ const handleFinish = async (values) => {
     // 注册请求
     const response = await api.post('/users/register', {
       username: values.username,
+      nickname: values.nickname,
       email: values.email,
       password: values.password,
       'cf-turnstile-response': turnstileToken.value
     })
     message.success('注册成功')
+    registerSuccessTooltip();
     userStore.setUser(response.data.user, response.data.token)
+    await nextTick() // 确保DOM更新
     router.push('/')
   } catch (error) {
     message.error('注册失败: ' + (error.response?.data?.message || error.message))

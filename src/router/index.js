@@ -4,6 +4,7 @@ import Register from '../views/Register.vue'
 import Home from '../views/Home.vue'
 import SekaiList from '../views/SekaiList.vue'
 import SekaiDetail from '../views/SekaiDetail.vue'
+import UserProfile from '../views/UserProfile.vue'
 import { useUserStore } from '../store'
 
 const routes = [
@@ -31,6 +32,11 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/profile',
+    name: 'UserProfile',
+    component: UserProfile
   },
     {
     path: '/about',

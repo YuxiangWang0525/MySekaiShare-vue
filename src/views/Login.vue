@@ -47,6 +47,7 @@ import { message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../store'
 import api from '../api'
+import { nextTick } from 'vue'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -66,6 +67,7 @@ const handleFinish = async (values) => {
     if (response.data.success) {
       message.success('登录成功')
       userStore.setUser(response.data.user, response.data.token)
+      await nextTick() // 确保DOM更新
       router.push('/')
     } else {
       message.error('登录失败: ' + response.data.message)

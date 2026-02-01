@@ -22,7 +22,7 @@ const openpage = (url) => {
           如俗称所说，这个玩法非常像《集合啦，动物森友会》。不过由于是附加玩法，所以并没有动森那么肝。玩家可以用心愿(其实还是开箱子、捡树枝摘花)<br>
           然而这个玩法有个致命问题：一般图纸可以从每日的纸飞机宝箱中获取、也可以用空白图纸来临摹其他人的物品(俗称抄图纸)。谁不想让自推团的孩子们能玩到互动道具，所以大多数人选择就算空白图纸有限的情况下也要抄图纸。<br>
           问题来了：去哪抄？谁都不知道想要的物品在哪个SEKAI能抄到，到了B站上找了半天也没找到。为了找别人那一长串的ID要游戏和B站来回切，容易被杀后台不说，经常是你忙活了半天啥也没抄到。<br>
-          所以，MySekaiShare诞生了。它的目的不仅仅是帮助玩家抄图纸，也可以通过MySEKAI绑定用户的特性结识到更多同好。
+          因为这点在创始人晚江右海红温多次后气急败坏，通宵一晚上敲了几千行代码。MySekaiShare就这样诞生了。它的目的不仅仅是帮助玩家抄图纸，也可以通过MySEKAI绑定用户的特性结识到更多同好。因为我相信这个游戏给大家带来的价值远不止游戏本身。
         </a-typography-paragraph>
         
         <a-typography-title :level="2">使用到的项目</a-typography-title>
@@ -30,7 +30,20 @@ const openpage = (url) => {
           <ul>
             <li><a href="https://sekai.best/" target="_blank">Sekai Viewer数据库</a></li>
             <li><a href="https://www.antdv.com/" target="_blank">Ant Design Vue</a></li>
-            <li><p>DREAMERIVER江愿软件即服务SaaS - FlowerInteractive"飞花令"网站数字业务框架(专有软件)</p></li>
+            <li><p>DREAMERIVER江愿软件即服务SaaS - FlowerInteractive"飞花令"网站数字业务框架(专有软件) 由江愿集团股份有限公司授权使用</p></li>
+            <a-card style="text-align:left;width:450px;background-color:lightgray" @click="openpage('https://dreameriver.cn')">
+              <template #actions>
+              </template>
+              <a-card-meta title="江愿集团正版软件授权标识" description="使用江愿正版软件。省时省力省心">
+              </a-card-meta><br>
+              授权软件:FlowerInteractive "飞花令” Node.js数字网站业务框架(Express中间件模式)<br>
+              授权代码:2026CN066285304F<br>
+              授权域:sekailand.cn ; sekai.xin ; sekai.top<br>
+              授权给:SekaiLand DRComicUnited 团队<br>
+              授权期限:2025-10-21 至 永久有效(非商业项目免费使用)<br>
+              授权状态:<span style="color:green">有效</span>
+              授权方:江愿教育与非商业发展软件管理委员会
+            </a-card>
           </ul>
         </a-typography-paragraph>
 

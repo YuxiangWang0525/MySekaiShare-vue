@@ -1,83 +1,97 @@
 <template>
-  <a-layout class="layout">
-    <!-- 页头 -->
-    <a-layout-header class="header">
-      <router-link to="/"><div class="logo">MySekaiShare</div></router-link>
-      <a-menu
-        v-model:selectedKeys="selectedKeys"
-        theme="dark"
-        mode="horizontal"
-        class="nav-menu"
-      >
-        <a-menu-item key="home">
-          <router-link to="/">首页</router-link>
-        </a-menu-item>
-        <a-menu-item key="sekai-list">
-          <router-link to="/sekai-list">分享广场</router-link>
-        </a-menu-item>
-        <a-menu-item key="about">
-          <router-link to="/about">关于</router-link>
-        </a-menu-item>
-      </a-menu>
-      <div class="user-actions">
-        <template v-if="userStore.isAuthenticated">
-          <span class="username-text" style="white-space: nowrap;">欢迎, {{ userStore.user?.username }}</span>
-          <a-button type="link" @click="handleLogout" class="logout-button">退出</a-button>
-        </template>
-        <template v-else>
-          <router-link to="/login">登录</router-link>
-          <router-link to="/register" class="register-link">注册</router-link>
-        </template>
-      </div>
-    </a-layout-header>
-    
-    <a-layout>
-      <!-- 侧边栏 -->
-      <a-layout-sider v-if="userStore.isAuthenticated" width="200" class="sider" v-show="false">
+  <a-config-provider :theme="themeConfig">
+    <a-layout class="layout">
+      <!-- 页头 -->
+      <a-layout-header class="header">
+        <router-link to="/"><div class="logo">MySekaiShare</div></router-link>
         <a-menu
-          mode="inline"
-          :default-selected-keys="['1']"
-          :style="{ height: '100%', borderRight: 0 }"
+          v-model:selectedKeys="selectedKeys"
+          theme="dark"
+          mode="horizontal"
+          class="nav-menu"
         >
-          <a-menu-item key="1">
-            <template #icon>
-              <UserOutlined />
-            </template>
-            <span>个人中心</span>
+          <a-menu-item key="home">
+            <router-link to="/">首页</router-link>
           </a-menu-item>
-          <a-menu-item key="2">
-            <template #icon>
-              <FileTextOutlined />
-            </template>
-            <span>我的分享</span>
+          <a-menu-item key="sekai-list">
+            <router-link to="/sekai-list">分享广场</router-link>
           </a-menu-item>
-          <a-menu-item key="3">
-            <template #icon>
-              <SettingOutlined />
-            </template>
-            <span>设置</span>
+          <a-menu-item key="about">
+            <router-link to="/about">关于</router-link>
           </a-menu-item>
         </a-menu>
-      </a-layout-sider>
+        <div class="user-actions">
+          <!-- 主题切换按钮 -->
+          <a-button 
+            type="link" 
+            @click="toggleTheme" 
+            class="theme-toggle-button"
+            :style="{ color: currentTheme === 'dark' ? '#fff' : '#000' }"
+          >
+<!--            <template #icon>-->
+<!--              <SunOutlined v-if="!isDark" />-->
+<!--              <ContrastOutlined v-else />-->
+<!--            </template>-->
+          </a-button>
+          
+          <template v-if="userStore.isAuthenticated">
+            <router-link to="/profile" class="username-text" style="white-space: nowrap; color: white; text-decoration: none; margin-right: 15px;">欢迎, {{ currentNickname }}</router-link>
+            <a-button type="link" @click="handleLogout" class="logout-button">退出</a-button>
+          </template>
+          <template v-else>
+            <router-link to="/login">登录</router-link>
+            <router-link to="/register" class="register-link">注册</router-link>
+          </template>
+        </div>
+      </a-layout-header>
       
-      <!-- 主内容区域 -->
-      <a-layout-content class="content-wrapper">
-        <a-watermark 
-          v-if="showWatermark" 
-          :content="watermarkContent" 
-          :font="{ color: 'rgba(0, 0, 0, .15)' }"
-          :gap="[100, 100]"
-        >
-          <div class="content">
+      <a-layout>
+        <!-- 侧边栏 -->
+        <a-layout-sider v-if="userStore.isAuthenticated" width="200" class="sider" v-show="false">
+          <a-menu
+            mode="inline"
+            :default-selected-keys="['1']"
+            :style="{ height: '100%', borderRight: 0 }"
+          >
+            <a-menu-item key="1">
+              <template #icon>
+                <UserOutlined />
+              </template>
+              <span>个人中心</span>
+            </a-menu-item>
+            <a-menu-item key="2">
+              <template #icon>
+                <FileTextOutlined />
+              </template>
+              <span>我的分享</span>
+            </a-menu-item>
+            <a-menu-item key="3">
+              <template #icon>
+                <SettingOutlined />
+              </template>
+              <span>设置</span>
+            </a-menu-item>
+          </a-menu>
+        </a-layout-sider>
+        
+        <!-- 主内容区域 -->
+        <a-layout-content class="content-wrapper">
+          <a-watermark 
+            v-if="showWatermark" 
+            :content="watermarkContent" 
+            :font="{ color: 'rgba(0, 0, 0, .15)' }"
+            :gap="[100, 100]"
+          >
+            <div class="content">
+              <router-view />
+            </div>
+          </a-watermark>
+          <div v-else class="content">
             <router-view />
           </div>
-        </a-watermark>
-        <div v-else class="content">
-          <router-view />
-        </div>
-      </a-layout-content>
+        </a-layout-content>
+      </a-layout>
     </a-layout>
-
     <!-- 页脚 -->
     <a-layout-footer class="footer">
       <div class="footer-content">
@@ -85,7 +99,7 @@
         <p>侵权申述邮箱:riverfrozer@dreameriver.cn 严禁将本站任何内容用于商业用途(包括但不限于:售卖本站地址、本站数据、或将本站含地址在内的任何信息作为任何有偿的售卖赠品)</p>
       </div>
     </a-layout-footer>
-  </a-layout>
+  </a-config-provider>
 </template>
 
 <script setup>
@@ -96,26 +110,60 @@ import { message } from 'ant-design-vue'
 import { 
   UserOutlined, 
   FileTextOutlined, 
-  SettingOutlined 
+  SettingOutlined,
+  BulbOutlined
 } from '@ant-design/icons-vue'
+import { useDark, useToggle } from '@vueuse/core'
+import { theme } from 'ant-design-vue'
 
 const router = useRouter()
 const userStore = useUserStore()
 const selectedKeys = ref(['home'])
 
+// 计算当前显示的昵称，直接使用nickname
+const currentNickname = computed(() => {
+  return userStore.user?.nickname || '未知用户'
+})
+
+// 暗黑主题相关
+// const isDark = useDark({
+//   selector: 'body',
+//   attribute: 'data-theme',
+//   valueDark: 'dark',
+//   valueLight: 'light',
+// })
+//const toggle = useToggle(isDark)
+//const currentTheme = computed(() => isDark.value ? 'dark' : 'light')
+
+// 主题配置
+const themeConfig = computed(() => {
+  return {
+    // algorithm: isDark.value ? theme.darkAlgorithm : theme.defaultAlgorithm,
+    token: {
+      colorPrimary: '#1890ff',
+      borderRadius: 6,
+    }
+  }
+})
+
+const toggleTheme = () => {
+  toggle()
+  // 保存主题偏好到localStorage
+  //localStorage.setItem('preferred-theme', isDark.value ? 'dark' : 'light')
+}
+
 // 控制水印显示的变量，开发人员可以手动修改这个值来启禁用水印
 const showWatermark = ref(false)
-
 // 生成水印内容
 const watermarkContent = computed(() => {
-  const username = userStore.user?.username || '未知用户'
+  const nickname = userStore.user?.nickname || '未知用户'
   const now = new Date()
   const timeString = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`
   
   return [
     '灰度公测',
     '不代表最终品质',
-    username,
+    nickname,
     timeString
   ]
 })
@@ -139,6 +187,12 @@ onMounted(() => {
     selectedKeys.value = ['sekai-list']
   } else if (path === '/about') {
     selectedKeys.value = ['about']
+  }
+  
+  // 检查本地存储的主题偏好，否则使用系统偏好
+  const savedTheme = localStorage.getItem('preferred-theme')
+  if (savedTheme) {
+    //isDark.value = savedTheme === 'dark'
   }
 })
 </script>
@@ -201,6 +255,11 @@ export default {
 
 .register-link {
   margin-left: 10px !important;
+}
+
+.theme-toggle-button {
+  margin-right: 15px;
+  color: white !important;
 }
 
 .sider {
@@ -335,7 +394,7 @@ export default {
     padding: 8px 0;
   }
   
-  .footer-content p {
+  .footer-content {
     font-size: 10px;
   }
 }
@@ -361,6 +420,7 @@ export default {
   
   .logout-button {
     font-size: 11px;
+    padding: 0 3px;
   }
   
   .nav-menu .ant-menu-item {

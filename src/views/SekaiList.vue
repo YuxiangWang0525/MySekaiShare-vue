@@ -61,7 +61,7 @@
         <template #renderItem="{ item }">
           <a-list-item key="item.id">
             <a-list-item-meta 
-              :description="'心愿主: ' + (item.User?.username || '未知') + ' | 服务器: ' + (item.ServerRegion?.region || '未知')"
+              :description="'心愿主: ' + (item.User?.nickname || '未知') + ' | 服务器: ' + (item.ServerRegion?.region || '未知')"
             >
               <template #title>
                 <a @click="showDetail(item.SEKAIID || item.sekaiId)">{{ item['MySEKAI昵称ID'] || item.sekaiName }}</a>

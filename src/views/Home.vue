@@ -19,7 +19,7 @@
                 <router-link to="/register">注册</router-link> 后分享你自己的SEKAI
               </li>
               <p style="color:red;">现阶段注册账户并不需要邮箱验证,只是在找回密码的时候需要使用邮箱地址来验证。任何声称自己为MySEKAIShare平台工作人员的人要求你提供邮箱地址或者电话号码的都是诈骗!!!!!</p>
-              <p>请各位<del>豆腐</del>老师们不要拘束,如果愿意,可以把好友码(SEKAI ID)分享到平台上。让更多的豆腐人们能够造访你的SEKAI。<del>或者多了一个冲榜搭子</del></p>
+              <p>请各位<del>豆腐</del>老师们不要拘束,如果愿意,可以把好友码(SEKAI ID)分享到平台上。让更多的豆腐老师们能够造访你的SEKAI。<del>或者多了一个冲榜搭子</del></p>
             </ul>
             
             <template #actions>
